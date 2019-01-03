@@ -2,7 +2,7 @@ language: minimal
 sudo: required
 dist: xenial
 install:
-  - docker build -t android-build .
+  - docker build -q -t android-build .
   - docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build gradle assemble
 env:
   global:
