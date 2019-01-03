@@ -16,9 +16,7 @@ deploy:
       -in mewconnect.tar.enc -out ~\/amazon/android/mewconnect.tar -d
     - tar xvf mewconnect.tar
     - gpg --allow-secret-key-import --import mew_sec.gpg
-  script:
-    bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "kvhnuke/MEWconnect-Android"
-    true
+  script: bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "kvhnuke/MEWconnect-Android" true
   skip_cleanup: true
   on:
     tags: true
