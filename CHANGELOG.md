@@ -1,3 +1,9 @@
+### Release v1.0.0.beta.4
+
+### Devop
+
+- Updated travis settings
+
 ### Release v1.0.0.beta.3 (18120901)
 
 ### Devop

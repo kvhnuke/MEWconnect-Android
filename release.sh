@@ -5,7 +5,7 @@ REPO="$3"
 CHANGELOG=`awk -v version="$RELEASE" '/### Release / {printit = $3 == version}; printit;' 'CHANGELOG.md'`
 mkdir release
 docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build zipalign -p 4 app/build/outputs/apk/release/app-release-unsigned.apk release/MEWconnect-Android-$RELEASE-unsigned.apk
-docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build apksigner sign --out release/MEWconnect-Android-$RELEASE.apk --ks MEWconnect-keystore.jks --ks-key-alias mewconnect --ks-pass env:KEYSTORE_PASS --key-pass env:KEY_PASS release/MEWconnect-Android-$RELEASE-unsigned.apk
+docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build apksigner sign --out release/MEWconnect-Android-$RELEASE.apk --ks MEWconnect-keystore.jks --ks-key-alias mewconnect --ks-pass pass:$KEYSTORE_PASS --key-pass pass:$KEY_PASS release/MEWconnect-Android-$RELEASE-unsigned.apk
 if [ -n "$4" ]; then
     for f in release/*; do
         gpg --output $f.sig --detach-sig $f

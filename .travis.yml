@@ -5,6 +5,7 @@ install:
   - openssl aes-256-cbc -K $encrypted_7ca4baf07889_key -iv $encrypted_7ca4baf07889_iv
     -in mewconnect.tar.enc -out mewconnect.tar -d
   - tar xvf mewconnect.tar
+  - gpg --allow-secret-key-import --import mew_sec.gpg
   - docker build -q -t android-build .
   - docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build gradle assemble
 env:
@@ -14,8 +15,6 @@ env:
     - secure: kynKk+hyDv2o+TK/7DSVrxk/Zw1DeC4wZAuoxtVCONnDrkUfiKoOqXw6QF5kHjJ52GDvbWJjsKKu8j7tXH5cpqTq0P2C6Lanon9vIRfWctmX95j8qPyGN1ZQFzzP0XQVmULKcIqlmyLGCeIBrzESyC8oTKIJUAVzPfd/EFgq7jKdigfR9HXcAWI/EHlMEB35DN0YMJodnMdkzI6FP0Ta6ySk40I1WRPnAvH+XrHibCMkLdnl4uvQuWiVd4TZZWMHMSBe6+6H++TI7mrAUVC1yAZmnnK/u5dm2LNQVPVT9p8QKEdG5XzYIEhZhQ7hm+4s7V13zeRH7DJfCh3IBVPQI2a+mko3xHn7KaefVl4EjWLXAuoXDGP8F4GJVsUFV3X37vQe50Egkw/YieJ5/IaRcYko0BdrSRTyed0+R149GHCYCcRyRF0WQH/sBMQVQtMP9MMaRls/vFR+UwvRJRMuht0Y8nj4h3uR3QJ5OCD9yXp4rBUb7uNEbCHq50anUJHH6E7rKwjcp9bSLvRjpgiklCLgpwBZKluiWHgQj8eZkjM97fxAqe05f/hvli5VbZ2vnXJNfMb64hrtJotb0JkVlpHl0bzsXT0TDyPxab2YKraMMdj24xPl7LG954ikgKSGVuiv7WwqqlANbvyzxVR98VkBsXprd0+SHnvUsOMj0Yw=
 deploy:
   provider: script
-  before_script:
-    - gpg --allow-secret-key-import --import mew_sec.gpg
   script: bash ./release.sh $TRAVIS_TAG $GITHUB_TOKEN "kvhnuke/MEWconnect-Android" true
   skip_cleanup: true
   on:
