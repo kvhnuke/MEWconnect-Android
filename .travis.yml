@@ -1,6 +1,6 @@
 language: minimal
 sudo: required
-dist: trusty
+dist: xenial
 install:
   - docker build -t android-build .
   - docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle/ android-build gradle assemble
